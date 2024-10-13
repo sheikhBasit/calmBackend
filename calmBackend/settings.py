@@ -1,6 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
-import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -105,11 +105,11 @@ WSGI_APPLICATION = 'calmBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME'),  # Database name
-        'USER': os.getenv('DB_USERNAME'),               # Your MySQL username
-        'PASSWORD': os.getenv('DB_PASSWORD'),               # Your MySQL password (replace if needed)
+        'NAME': config('DB_NAME'),  # Database name
+        'USER': config('DB_USERNAME'),               # Your MySQL username
+        'PASSWORD': config('DB_PASSWORD'),               # Your MySQL password (replace if needed)
         'HOST': '127.0.0.1',          # Database host
-        'PORT': os.getenv('DB_PORT'),               # MySQL port
+        'PORT': config('DB_PORT'),               # MySQL port
     }
 }
 
