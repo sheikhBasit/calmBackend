@@ -1,15 +1,11 @@
 {
     "builds": [
-      { "src": "manage.py", "use": "@vercel/python" }
+      { "src": "calmBackend/wsgi.py", "use": "@vercel/python" }
     ],
     "routes": [
       {
-        "src": "/static/(.*)",
-        "dest": "/staticfiles_build/static/$1"
-      },
-      {
-        "src": "(.*)",
-        "dest": "manage.py"
+        "src": "/(.*)",
+        "dest": "calmBackend/wsgi.py"
       }
     ]
   }
