@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,9 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'your-secret-key-here'  # Replace with your actual secret key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to False in production
+DEBUG = False  # Set to False in production
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','.vercel.app','.now.sh']  # Add more hosts as needed
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'your-production-domain.com']  # Add your production domain here
 
 # Application definition
 INSTALLED_APPS = [
@@ -25,17 +26,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders'
-
 ]
 
 # Allow all origins (use with caution, better for development)
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 # OR restrict to specific origins (recommended for production)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Example: Frontend on a different port
     "https://your-production-domain.com",  # Replace with actual domain
 ]
+
 # Disable in development, enable in production
 SECURE_SSL_REDIRECT = not DEBUG
 
@@ -56,7 +57,7 @@ SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 
 # Prevent CSRF attacks
 CSRF_TRUSTED_ORIGINS = [
-    "https://your-production-domain.com",  # Add your domain here
+    "https://your-production-domain.com",  # Add your production domain here
 ]
 
 # Other security-related settings
@@ -104,11 +105,11 @@ WSGI_APPLICATION = 'calmBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'medicalmanagement',  # Database name
-        'USER': 'pma',               # Your MySQL username
-        'PASSWORD': '',               # Your MySQL password (replace if needed)
-        'HOST': '127.0.0.1',          # Database host
-        'PORT': '3306',               # MySQL port
+        'NAME': config('DB_NAME'),  # Database name
+        'USER': config('DB_USERNAME'),  # Your MySQL username
+        'PASSWORD': config('DB_PASSWORD'),  # Your MySQL password
+        'HOST': '127.0.0.1',  # Database host
+        'PORT': config('DB_PORT'),  # MySQL port
     }
 }
 
@@ -138,12 +139,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import os
-
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')

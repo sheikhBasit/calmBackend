@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000  # Listen on all interfaces
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"  # Map host port 8000 to container port 8000
+    environment:
+      RDS_DB_NAME: 'medicalmanagement'
+      RDS_DB_USER: 'admin'
+      RDS_DB_PASSWORD: "213$$Anas" 
+      RDS_HOSTNAME: 'calmspacedb.cd2086io6se5.us-east-1.rds.amazonaws.com'
+      RDS_PORT: '3306'
