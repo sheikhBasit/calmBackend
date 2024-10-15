@@ -1,4 +1,5 @@
 from django.http import Http404, HttpResponse
+from django.shortcuts import render
 from rest_framework import viewsets, filters, permissions, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -12,7 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class IndexView(viewsets.ViewSet):
     def index(request):
-        return HttpResponse("<h1>Deployed </h1>")
+        return render(request, 'index.html')
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
